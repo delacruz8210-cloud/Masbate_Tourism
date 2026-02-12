@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Masbate</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(to right,#f8f9fa,#e9ecef);
+    color:#333;
+}
+
+header{
+    text-align:center;
+    padding:40px 20px;
+    background:#1d3557;
+    color:white;
+}
+
+header h1{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+}
+
+.search-box{
+    text-align:center;
+    margin:30px 0;
+}
+
+.search-box input{
+    width:60%;
+    max-width:400px;
+    padding:12px;
+    border-radius:30px;
+    border:1px solid #ccc;
+    outline:none;
+    font-size:16px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    padding:40px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.card{
+    position:relative;
+    overflow:hidden;
+    border-radius:15px;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:scale(1.05);
+}
+
+.card img{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+}
+
+.card h3{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:15px;
+    background:rgba(0,0,0,0.6);
+    color:white;
+    text-align:center;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:999;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    background:white;
+    width:90%;
+    max-width:600px;
+    border-radius:15px;
+    overflow:hidden;
+    animation:fadeIn 0.3s ease;
+}
+
+.modal-content img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+}
+
+.modal-info{
+    padding:25px;
+    text-align:center;
+}
+
+.modal-info h2{
+    font-family:'Playfair Display',serif;
+    margin-bottom:10px;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    font-size:28px;
+    cursor:pointer;
+    color:white;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:scale(0.8);}
+    to{opacity:1;transform:scale(1);}
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:#1d3557;
+    color:white;
+    margin-top:40px;
+}
+
+.back-btn{
+    margin-top:20px;
+    padding:10px 25px;
+    border:none;
+    background:#1d3557;
+    color:white;
+    border-radius:25px;
+    cursor:pointer;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#457b9d;
+}
+
+.search-back-btn {
+    padding: 10px 18px;
+    margin-left: 10px;
+    border: none;
+    background: #1d3557;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-back-btn:hover {
+    background: #457b9d;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+<h1>Masbate Tourist Spots</h1>
+<p>Discover Beautiful Tourist Spots in Masbate</p>
+</header>
+
+<div class="search-box">
+<input type="text" id="searchInput" 
+placeholder="Search tourist spots and places.." 
+onkeyup="searchPlaces()">
+<button onclick="resetSearch()"
+class="search-back-btn">Back</button>
+
+</div>
+
+<section class="gallery" id="gallery">
+
+<div class="card" data-name="Catandayagan Falls" data-location="Ticao Island, Philippines"
+onclick="showInfo('Catandayagan Falls','Ticao Island, Philippines','Unique 100-Foot waterfall plunging directly into the sea.','pc1.jpg')">
+<img src="pc1.jpg">
+<h3>Catandayagan Falls</h3>
+</div>
+
+<div class="card" data-name="Buntod Reef Marine Sanctuary" data-location="Masbate City, Philippines"
+onclick="showInfo('Buntod Reef Marine Sanctuary','Masbate City, Philippines','A popular white sandbar and sandbar for snorkling.','pc2.jpg')">
+<img src="c:\Users\ADMIN\Desktop\LorenzFile\pc2.jpg">
+<h3>Buntod Reef Marine Sanctuary</h3>
+</div>
+
+<div class="card" data-name="Palani White Beach" data-location="Balud, Masbate, Philippines"
+onclick="showInfo('Palani White Beach','Balud, Masbate, Philippines','A 10 kilometer stretch of white sand, ideal for relaxing.','pc3.jpg')">
+<img src="pc3.jpg">
+<h3>Palani White Beach</h3>
+</div>
+
+<div class="card" data-name="Animasola Island" data-location="Burias Island, Philippines"
+onclick="showInfo('Animasola Island','Burias Island, Philippines','Known for its striking, stratified rock formations and blue waters.','pc4.jpg')">
+<img src="pc4.jpg">
+<h3>Animasola Island</h3>
+</div>
+
+<div class="card" data-name="Sombrero Island" data-location="Burias Island, Philippines"
+onclick="showInfo('Sombrero Island','Burias Island, Philippines','Shaped like a hat with a stunning white sandbar and turtle sanctuary.','pc5.jpg')">
+<img src="pc5.jpg">
+<h3>Sombrero Island</h3>
+</div>
+
+<div class="card" data-name="Tinalisayan Islet and Sandbar" data-location="Burias Island, Philippines"
+onclick="showInfo('Tinalisayan Islet and Sandbar','Burias Island, Philippines','Features a long, white sandbar and crystal-clear turquoise waters.','pc6.jpg')">
+<img src="pc6.jpg">
+<h3>Tinalisayan Islet and Sandbar</h3>
+</div>
+
+<div class="card" data-name="Halea Nature Park" data-location="Ticao Island, Philippines"
+onclick="showInfo('Halea Nature Park','Ticao Island, Philippines','A secluded cove with white sand perfect for swimming and snorkelling.','pc7.jpg')">
+<img src="pc7.jpg">
+<h3>Halea Nature Park</h3>
+</div>
+
+<div class="card" data-name="Burubangkaso Islet" data-location="Burias Island, Philippines"
+onclick="showInfo('Burubangkaso Islet','Burias Island, Philippines','Features unique rock formations and a white sand beach.','pc8.jpg')">
+<img src="pc8.jpg">
+<h3>Burubangkaso Islet</h3>
+</div>
+
+<div class="card" data-name="Pawa Mangrove Park" data-location="Palanas, Masbate, Philippines"
+onclick="showInfo('Pawa Mangrove Park','Palanas, Masbate, Philippines','A 300 hectare mangrove forest with a 1.3km wooden bridge.','pc9.jpg')">
+<img src="pc9.jpg">
+<h3>Pawa Mangrove Park</h3>
+</div>
+
+<div class="card" data-name="Jintotolo Lighthouse" data-location="Balud, Masbate, Philippines"
+onclick="showInfo('Jintotolo Lighthouse','Balud, Masbate, Philippines','A historic scenic Lighthouse offering panoramic views.','pc10.jpg')">
+<img src="pc10.jpg">
+<h3>Jintotolo Lighthouse</h3>
+</div>
+
+<div class="card" data-name="Aroroy Lighthouse" data-location="Aroroy, Masbate, Philippines"
+onclick="showInfo('Aroroy Lighthouse','Aroroy, Masbate, Philippines','A picturesque spot for sunset viewing.','pc11.jpg')">
+<img src="pc11.jpg">
+<h3>Aroroy Lighthouse</h3>
+</div>
+
+<div class="card" data-name="Porta Vega Beach" data-location="Claveria, Masbate, Philippines"
+onclick="showInfo('Porta Vega Beach','Claveria, Masbate, Philippines','Known for its dwarf coconut trees and small church.','pc12.jpg')">
+<img src="pc12.jpg">
+<h3>Porta Vega Beach</h3>
+</div>
+
+<div class="card" data-name="San Isidro Beach" data-location="Ticao Island, Philippines"
+onclick="showInfo('San Isidro Beach','Ticao Island, Philippines','A quiet, pristine white sand beach.','pc13.jpg')">
+<img src="pc13.jpg">
+<h3>San Isidro Beach</h3>
+</div>
+
+<div class="card" data-name="Mangrovetum" data-location="Masbate City, Philippines"
+onclick="showInfo('Mangrovetum','Masbate City, Philippines','A protected area for mangrove conservation and walking.','pc14.jpg')">
+<img src="pc14.jpg">
+<h3>Mangrovetum</h3>
+</div>
+
+<div class="card" data-name="Tinigban Beach" data-location="Aroroy, Masbate, Philippines"
+onclick="showInfo('Tinigban Beach','Aroroy, Masbate, Philippines','A long, quiet beach ideal for relaxing.','pc15.jpg')">
+<img src="pc15.jpg">
+<h3>Tinigban Beach</h3>
+</div>
+
+<div class="card" data-name="Bat-ongan Cave" data-location="Mandaon, Masbate, Philippines"
+onclick="showInfo('Bat-ongan Cave','Mandaon, Masbate, Philippines','A facinating limestone cave formation.','pc16.jpg')">
+<img src="pc16.jpg">
+<h3>Bat-ongan Cave</h3>
+</div>
+
+<div class="card" data-name="Burgo's Busay Falls" data-location="San Jacinto, Philippines"
+onclick="showInfo('Burgos Busay Falls','San Jacinto, Masbate, Philippines','Twin waterfalls surrounded by nature.','pc17.jpg')">
+<img src="pc17.jpg">
+<h3>Burgo's Busay Falls</h3>
+</div>
+
+<div class="card" data-name="Malipuron Falls" data-location="San Jacinto, Philippines"
+onclick="showInfo('Malipuron Falls','San Jacinto, Masbate, Philippines','A refreshing, natural waterfall spot.','pc18.jpg')">
+<img src="pc18.jpg">
+<h3>Malipuron Falls</h3>
+</div>
+
+<div class="card" data-name="San Jacinto View Deck" data-location="San Jacinto, Philippines"
+onclick="showInfo('San Jacinto View Deck','San Jacinto, Masbate, Philippines','Offers paranomic view of Ticao Pass and mainland Bicol.','pc19.jpg')">
+<img src="pc19.jpg">
+<h3>San Jacinto View Deck</h3>
+</div>
+
+<div class="card" data-name="San Antonio de Padua Cathedral" data-location="Masbate City, Philippines"
+onclick="showInfo('San Antonio de Padua Cathedral','Masbate City, Philippines','A historic remolded church.','pc20.jpg')">
+<img src="pc20.jpg">
+<h3>San Antonio de Padua Cathedral</h3>
+</div>
+
+
+
+</section>
+
+
+<div id="infoModal" class="modal">
+<span class="close" onclick="closeModal()">&times;</span>
+<div class="modal-content">
+<img id="modalImage">
+<div class="modal-info">
+<h2 id="modalTitle"></h2>
+<p><strong>Location:</strong> <span id="modalLocation"></span></p>
+<p id="modalDescription"></p>
+<button class="back-btn" onclick="closeModal()">← Back</button>
+</div>
+</div>
+</div>
+
+<footer>
+&copy; 2026 Explore Masbate  | Tourist Spots
+</footer>
+
+<script>
+function showInfo(title, location, description, image){
+document.getElementById("modalTitle").innerText = title;
+document.getElementById("modalLocation").innerText = location;
+document.getElementById("modalDescription").innerText = description;
+document.getElementById("modalImage").src = image;
+document.getElementById("infoModal").style.display = "flex";
+}
+
+function closeModal(){
+document.getElementById("infoModal").style.display = "none";
+}
+
+window.onclick = function(event){
+let modal = document.getElementById("infoModal");
+if(event.target == modal){
+modal.style.display = "none";
+}
+}
+
+function searchPlaces(){
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card=>{
+        let name = card.getAttribute("data-name")?.toLowerCase() || "";
+        let location = card.getAttribute("data-location")?.toLowerCase() || "";
+
+        if(name.includes(input) || location.includes(input)){
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+function resetSearch(){
+    document.getElementById("searchInput").value="";
+    let cards = document.querySelectorAll(".card");
+    cards.forEach(card=>{card.style.display = "block";});
+}
+</script>
+
+</body>
+</html>
